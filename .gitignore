@@ -170,4 +170,3 @@ manage.py
 **/migrations/*
 !**/migrations/__init__.py
 bandit_report.txt
-templates/

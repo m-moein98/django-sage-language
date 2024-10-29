@@ -6,7 +6,25 @@ from django.conf import settings
 def check_sage_language_installed(app_configs, **kwargs):
     errors = []
 
-    # 2. Check that "sage_language.middlewares.cookie.CookieLocaleMiddleware" is in MIDDLEWARE
+    # 1. Check if SAGE_LANGUAGE_COOKIE_NAME is set in settings
+    if not hasattr(settings, 'SAGE_LANGUAGE_COOKIE_NAME'):
+        errors.append(
+            Error(
+                'SAGE_LANGUAGE_COOKIE_NAME is not set in settings',
+                id="sage_language.E005",
+            )
+        )
+    else:
+        # 2. Ensure LANGUAGE_COOKIE_NAME is set to SAGE_LANGUAGE_COOKIE_NAME
+        if getattr(settings, 'LANGUAGE_COOKIE_NAME', None) != settings.SAGE_LANGUAGE_COOKIE_NAME:
+            errors.append(
+                Error(
+                    f'LANGUAGE_COOKIE_NAME must be set to SAGE_LANGUAGE_COOKIE_NAME ("{settings.SAGE_LANGUAGE_COOKIE_NAME}")',
+                    id="sage_language.E011",
+                )
+            )
+
+    # 3. Check that "sage_language.middlewares.cookie.CookieLocaleMiddleware" is in MIDDLEWARE
     # and is exactly after 'django.contrib.sessions.middleware.SessionMiddleware'
     session_middleware = 'django.contrib.sessions.middleware.SessionMiddleware'
     cookie_middleware = "sage_language.middlewares.cookie.CookieLocaleMiddleware"
@@ -33,15 +51,6 @@ def check_sage_language_installed(app_configs, **kwargs):
             Error(
                 f"{session_middleware} is missing in MIDDLEWARE",
                 id="sage_language.E004",
-            )
-        )
-
-    # 3. Check if SAGE_LANGUAGE_COOKIE_NAME is set in settings
-    if not hasattr(settings, 'SAGE_LANGUAGE_COOKIE_NAME'):
-        errors.append(
-            Error(
-                'SAGE_LANGUAGE_COOKIE_NAME is not set in settings',
-                id="sage_language.E005",
             )
         )
 

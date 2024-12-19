@@ -108,23 +108,19 @@ After installing the `sage_language` package, configure your Django project by m
 
    .. code-block:: python
 
-      from django.conf.urls.i18n import i18n_patterns
-      from django.urls import path, include
       from django.contrib import admin
-
+      from django.urls import path, include
+      from django.conf.urls.i18n import i18n_patterns
       from sage_language.views import SetLanguageView
-      from yourapp.views import YourView  # replace with your view
 
       urlpatterns = [
-          path('set-language/', SetLanguageView.as_view(), name='set_language'),
-          path("i18n/", include("django.conf.urls.i18n")),
+         path("i18n/", include("django.conf.urls.i18n")),
       ]
 
-      # Define the patterns for multilingual views
       urlpatterns += i18n_patterns(
-          path('admin/', admin.site.urls),
-          path('', YourView.as_view(), name='your-view-that-wants-to-be-multilingual'),
-          prefix_default_language=False,
+         path('admin/', admin.site.urls),
+         path('set-language/', SetLanguageView.as_view(), name='set_language'),
+         prefix_default_language=False,
       )
 
 Usage

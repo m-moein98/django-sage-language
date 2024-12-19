@@ -153,7 +153,8 @@ class CookieLocaleMiddleware(DjangoLocaleMiddleware):
         # Set the language cookie if it's different from the current one
         if (
             current_language
-            and request.COOKIES.get(settings.SAGE_LANGUAGE_COOKIE_NAME) != current_language
+            and request.COOKIES.get(settings.SAGE_LANGUAGE_COOKIE_NAME)
+            != current_language
         ):
             response.set_cookie(settings.SAGE_LANGUAGE_COOKIE_NAME, current_language)
 

@@ -7,14 +7,14 @@ import os
 import sys
 import sphinx_rtd_theme
 
-sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath("../../"))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'django-sage-language'
-copyright = '2024, Mohammad Fotouhi mohammad@sageteam.org'
-author = 'Mohammad Fotouhi mohammad@sageteam.org'
+project = "django-sage-language"
+copyright = "2024, Mohammad Fotouhi mohammad@sageteam.org"
+author = "Mohammad Fotouhi mohammad@sageteam.org"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

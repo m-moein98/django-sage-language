@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-sage-language"
-version = "0.1.1"
+version = "0.1.2"
 description = "A Django Project for changing language."
 authors = ["MohmdFo <mohammad.fotouhi80@gmail.com>","Sepehr Akbarzadeh <sepehr@sageteam.org>"]
 readme = "README.md"

@@ -6,7 +6,6 @@ more nuanced approach to language detection and selection through URL
 prefixes and cookies. The core component, CookieLocaleMiddleware,
 intercepts web requests to determine the most suitable language for the
 user and adjust the request or response accordingly.
-
 """
 
 import logging
@@ -30,7 +29,6 @@ class CookieLocaleMiddleware(DjangoLocaleMiddleware):
     preference. It's designed to work seamlessly with multilingual
     sites, redirecting users to the appropriate language version of the
     site based on their preferences and the available languages.
-
     """
 
     def process_request(self, request):
@@ -45,15 +43,16 @@ class CookieLocaleMiddleware(DjangoLocaleMiddleware):
         Example:
             When a user accesses a URL like '/es/about/', but their language cookie
             is set to 'en', this method will redirect them to '/en/about/' if
-            English is an available language. Conversely, if the URL is '/about/' with no
-            language prefix and the cookie is set to 'es', the user will be redirected to '/es/about/'.
+            English is an available language. Conversely, if the URL is '/about/' with
+            no language prefix and the cookie is set to 'es', the user will be
+            redirected to '/es/about/'.
 
         Parameters:
             request: HttpRequest object containing metadata about the request.
 
         Returns:
-            A redirect response if the language from the URL and cookie differ, otherwise None.
-
+            A redirect response if the language from the URL and cookie differ,
+            otherwise None.
         """
 
         # Exclude certain paths from language prefix redirection
@@ -96,8 +95,8 @@ class CookieLocaleMiddleware(DjangoLocaleMiddleware):
         elif url_language in dict(settings.LANGUAGES):
             translation.activate(url_language)
             request.LANGUAGE_CODE = url_language
-            # Redirect if the URL language is different from the cookie language and is not
-            #  the default language
+            # Redirect if the URL language is different from the cookie language and
+            # is not the default language
             if (
                 url_language != settings.LANGUAGE_CODE
                 and url_language != cookie_language
@@ -140,8 +139,8 @@ class CookieLocaleMiddleware(DjangoLocaleMiddleware):
             response: HttpResponse object that will be sent back to the user.
 
         Returns:
-            The modified HttpResponse object with the updated language cookie if necessary.
-
+            The modified HttpResponse object with the updated language cookie if
+            necessary.
         """
 
         # First, call the parent class's process_response method

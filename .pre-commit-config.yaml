@@ -102,15 +102,6 @@ repos:
 
   - repo: local
     hooks:
-      - id: pytest
-        name: Pytest
-        entry: poetry run pytest -v
-        language: system
-        types: [python]
-        stages: [commit]
-        pass_filenames: false
-        always_run: true
-
       - id: pylint
         name: Pylint
         entry: pylint
@@ -126,6 +117,5 @@ repos:
 
 ci:
   skip: [
-    pylint,
-    pytest
+    pylint
   ]

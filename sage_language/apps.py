@@ -8,4 +8,4 @@ class SageLanguageConfig(AppConfig):
     verbose_name = _("Language")
 
     def ready(self):
-        from . import checks
+        from . import checks  # pylint: disable=import-outside-toplevel,unused-import

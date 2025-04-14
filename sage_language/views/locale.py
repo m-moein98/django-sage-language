@@ -18,29 +18,31 @@ class SetLanguageView(View):
     Methods
     -------
     post(request, *args, **kwargs)
-        Handles POST requests to set the user's language preference and redirects to a given URL.
+        Handles POST requests to set the user's language preference and redirects to a
+        given URL.
 
     See Also
     --------
     django.views.View : The base class from which this view inherits.
     django.utils.translation : Used for activating language settings.
-    kernel.utils.locale.MultilingualService : Provides utility for adding language prefix to URLs.
+    kernel.utils.locale.MultilingualService : Provides utility for adding language
+    prefix to URLs.
 
     Examples
     --------
     This view can be used in a Django project by including it in the URL configuration.
-    It responds to POST requests with `language` and `next` parameters to set the language
-    and redirect to the next page, respectively.
+    It responds to POST requests with `language` and `next` parameters to set the
+    language and redirect to the next page, respectively.
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):  # pylint: disable=unused-argument
         """
         Handle POST request to set the user's language preference.
 
         This method retrieves the language preference from the POST request, activates
         the chosen language, and redirects the user to a specified URL, optionally with
-        a language prefix. If no language is specified in the request, it defaults to the
-        application's default language.
+        a language prefix. If no language is specified in the request, it defaults to
+        the application's default language.
 
         Parameters
         ----------
@@ -72,5 +74,4 @@ class SetLanguageView(View):
             response = HttpResponseRedirect(next_page)
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language)
             return response
-        else:
-            return HttpResponseRedirect(next_page)
+        return HttpResponseRedirect(next_page)

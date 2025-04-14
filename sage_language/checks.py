@@ -1,9 +1,9 @@
-from django.core.checks import Error, Warning, register
 from django.conf import settings
+from django.core.checks import Error, register
 
 
 @register()
-def check_sage_language_installed(app_configs, **kwargs):
+def check_sage_language_installed(app_configs, **kwargs):  # noqa: C901
     errors = []
 
     # 1. Check if SAGE_LANGUAGE_COOKIE_NAME is set in settings
@@ -16,19 +16,19 @@ def check_sage_language_installed(app_configs, **kwargs):
         )
     else:
         # 2. Ensure LANGUAGE_COOKIE_NAME is set to SAGE_LANGUAGE_COOKIE_NAME
-        if (
-            getattr(settings, "LANGUAGE_COOKIE_NAME", None)
-            != settings.SAGE_LANGUAGE_COOKIE_NAME
-        ):
+        cookie_name = settings.SAGE_LANGUAGE_COOKIE_NAME
+        if getattr(settings, "LANGUAGE_COOKIE_NAME", None) != cookie_name:
             errors.append(
                 Error(
-                    f'LANGUAGE_COOKIE_NAME must be set to SAGE_LANGUAGE_COOKIE_NAME ("{settings.SAGE_LANGUAGE_COOKIE_NAME}")',
+                    "LANGUAGE_COOKIE_NAME must be set to "
+                    f"SAGE_LANGUAGE_COOKIE_NAME ('{cookie_name}')",
                     id="sage_language.E011",
                 )
             )
 
-    # 3. Check that "sage_language.middlewares.cookie.CookieLocaleMiddleware" is in MIDDLEWARE
-    # and is exactly after 'django.contrib.sessions.middleware.SessionMiddleware'
+    # 3. Check that "sage_language.middlewares.cookie.CookieLocaleMiddleware" is in
+    # MIDDLEWARE and is exactly after
+    # 'django.contrib.sessions.middleware.SessionMiddleware'
     session_middleware = "django.contrib.sessions.middleware.SessionMiddleware"
     cookie_middleware = "sage_language.middlewares.cookie.CookieLocaleMiddleware"
 
@@ -45,7 +45,8 @@ def check_sage_language_installed(app_configs, **kwargs):
         elif settings.MIDDLEWARE[session_index + 1] != cookie_middleware:
             errors.append(
                 Error(
-                    f"{cookie_middleware} must be placed immediately after {session_middleware}",
+                    f"{cookie_middleware} must be placed"
+                    f"immediately after {session_middleware}",
                     id="sage_language.E003",
                 )
             )
@@ -57,7 +58,8 @@ def check_sage_language_installed(app_configs, **kwargs):
             )
         )
 
-    # 4. Check if USE_I18N, USE_TZ, USE_L10N, LANGUAGES, and LANGUAGE_CODE are set in settings
+    # 4. Check if USE_I18N, USE_TZ, USE_L10N, LANGUAGES, and LANGUAGE_CODE are set in
+    # settings
     if not getattr(settings, "USE_I18N", None):
         errors.append(
             Error(

@@ -30,7 +30,7 @@ After installing the `sage_language` package, configure your Django project by m
 
       INSTALLED_APPS = [
           # other apps...
-          'sage_language',
+          "sage_language",
       ]
 
 2. **Add `CookieLocaleMiddleware` to Middleware**
@@ -41,9 +41,9 @@ After installing the `sage_language` package, configure your Django project by m
 
       MIDDLEWARE = [
           # Django's session middleware must come before CookieLocaleMiddleware
-          'django.contrib.sessions.middleware.SessionMiddleware',
+          "django.contrib.sessions.middleware.SessionMiddleware",
           # other middleware...
-          'sage_language.middlewares.cookie.CookieLocaleMiddleware',
+          "sage_language.middlewares.cookie.CookieLocaleMiddleware",
       ]
 
 3. **Configure Language Settings**
@@ -79,8 +79,8 @@ After installing the `sage_language` package, configure your Django project by m
      .. code-block:: python
 
         LANGUAGES = [
-            ('en', 'English'),
-            ('fr', 'French'),
+            ("en", "English"),
+            ("fr", "French"),
             # other languages...
         ]
 
@@ -88,7 +88,7 @@ After installing the `sage_language` package, configure your Django project by m
 
      .. code-block:: python
 
-        LANGUAGE_CODE = 'en'
+        LANGUAGE_CODE = "en"
 
 4. **Add `SetLanguageView` to URL Patterns**
 
@@ -99,7 +99,7 @@ After installing the `sage_language` package, configure your Django project by m
       from sage_language.views import SetLanguageView
 
       urlpatterns = [
-          path('set-language/', SetLanguageView.as_view(), name='set_language'),
+          path("set-language/", SetLanguageView.as_view(), name="set_language"),
       ]
 
 5. **Include i18n URL Patterns**
@@ -114,13 +114,13 @@ After installing the `sage_language` package, configure your Django project by m
       from sage_language.views import SetLanguageView
 
       urlpatterns = [
-         path("i18n/", include("django.conf.urls.i18n")),
+          path("i18n/", include("django.conf.urls.i18n")),
       ]
 
       urlpatterns += i18n_patterns(
-         path('admin/', admin.site.urls),
-         path('set-language/', SetLanguageView.as_view(), name='set_language'),
-         prefix_default_language=False,
+          path("admin/", admin.site.urls),
+          path("set-language/", SetLanguageView.as_view(), name="set_language"),
+          prefix_default_language=False,
       )
 
 Usage

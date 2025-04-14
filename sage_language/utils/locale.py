@@ -19,7 +19,6 @@ Notes
 The module is particularly useful in scenarios where a Django application serves
 content in multiple languages and needs to modify URLs to reflect the current
 language context.
-
 """
 
 from django.conf import settings
@@ -29,8 +28,9 @@ class MultilingualService:
     """
     A service class for managing language prefixes in URLs.
 
-    This class provides class methods to add or remove language prefixes from URLs,
-    assisting in the creation of language-specific URLs in a multilingual Django application.
+    This class provides class methods to add or remove language prefixes
+    from URLs, assisting in the creation of language-specific URLs in
+    a multilingual Django application.
     It uses the application's language settings defined in Django's settings module.
 
     Methods
@@ -56,10 +56,12 @@ class MultilingualService:
     @classmethod
     def get_language_prefix(cls, url, language):
         """
-        Process the given URL to add or remove the language prefix based on the specified language.
+        Process the given URL to add or remove the language prefix based on the
+        specified language.
 
         This method first removes any existing language prefix from the URL and then,
-        if the specified language is not the default language, adds the appropriate language prefix.
+        if the specified language is not the default language, adds the appropriate
+        language prefix.
 
         Parameters
         ----------
@@ -72,7 +74,6 @@ class MultilingualService:
         -------
         str
             The URL with the appropriate language prefix added, if necessary.
-
         """
         url = cls.remove_language_prefix(url)
         if language != settings.LANGUAGE_CODE:
@@ -97,7 +98,6 @@ class MultilingualService:
         -------
         str
             The URL prefixed with the specified language code.
-
         """
         return f"/{language}{url}"
 
@@ -106,8 +106,10 @@ class MultilingualService:
         """
         Remove any existing language prefix from the given URL.
 
-        This method iterates through the available languages and removes the corresponding prefix from the URL,
-        if present. It is designed to strip language codes from URLs in a language-agnostic manner.
+        This method iterates through the available languages and removes the
+        corresponding prefix from the URL,
+        if present. It is designed to strip language codes from URLs in a
+        language-agnostic manner.
 
         Parameters
         ----------
@@ -118,9 +120,8 @@ class MultilingualService:
         -------
         str
             The URL with any language prefix removed.
-
         """
-        for lang_code, _ in settings.LANGUAGES:
+        for lang_code, _lang_name in settings.LANGUAGES:
             prefix = f"/{lang_code}/"
             if url.startswith(prefix):
                 return url[len(prefix) - 1 :]

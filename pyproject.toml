@@ -1,7 +1,7 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
+build-backend = "poetry_dynamic_versioning.backend"
 
-requires = [ "poetry-core" ]
+requires = [ "poetry-core>=1", "poetry-dynamic-versioning>=1,<2" ]
 
 [tool.poetry]
 name = "django-sage-language"
@@ -34,6 +34,7 @@ django = [
   { version = ">=4.2,<5.0", python = ">=3.8,<3.10" },
   { version = ">=4.2,<5.3", python = ">=3.10" },      # Django 4.2 and 5.x for Python 3.10+
 ]
+git-changelog = "^2.5.3"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.8.0"
@@ -51,6 +52,15 @@ isort = "^5.13.2"
 pylint-django = "^2.5.5"
 django-debug-toolbar = "^4.4.6"
 sphinx-rtd-theme = "^2.0.0"
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = [ "plugin" ] }
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
+pattern = "default-unprefixed"
 
 [tool.black]
 line-length = 88
